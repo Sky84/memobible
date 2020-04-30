@@ -1,7 +1,11 @@
 <template>
   <div class="exp-progress-bar">
     Experience
-    <div class="progress">
+    <div class="progress position-relative">
+      <span v-if="gain"
+        class="progress__gain"
+        :style="{'left':parseInt(experience)+parseInt(gain)-4+'%'}"
+      >{{'+'+gain}}</span>
       <div
         class="progress-bar bg-warning"
         role="progressbar"
@@ -10,7 +14,8 @@
         aria-valuemin="0"
         aria-valuemax="100"
       ></div>
-      <div v-if="gain"
+      <div
+        v-if="gain"
         class="progress-bar bg-success"
         role="progressbar"
         :style="{width:gain+'%'}"
@@ -36,5 +41,11 @@ export default class ExperienceBar extends Vue {
 <style scoped lang="scss">
 .progress {
   height: 2rem;
+  &__gain {
+    position: absolute;
+    top: 20%;
+    color: white;
+    font-weight: bold;
+  }
 }
 </style>

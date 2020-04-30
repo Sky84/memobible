@@ -1,7 +1,7 @@
 <template>
   <div class="header row">
-    <ExperienceBar :experience="playerExperience" class="col-3" />
-    <div class="header__countdown">{{timeLeft}}</div>
+    <ExperienceBar v-if="isInGameMode" :experience="playerExperience" class="col-3" />
+    <div v-if="isInGameMode" class="header__countdown">{{timeLeft}}</div>
   </div>
 </template>
 
@@ -13,6 +13,15 @@ import ExperienceBar from './ExperienceBar.vue';
 export default class Header extends Vue {
   get timeLeft() {
     return this.$store.state.timeLeft;
+  }
+
+  get isInGameMode() {
+    return (
+      [
+        this.$store.state.STEP_PHASE.WRITE,
+        this.$store.state.STEP_PHASE.LEARN
+      ].indexOf(this.$store.state.game.step) > -1
+    );
   }
 
   get playerExperience() {
